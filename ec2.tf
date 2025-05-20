@@ -34,7 +34,7 @@ resource "aws_vpc_security_group_ingress_rule" "SSH" {
 
 resource "aws_vpc_security_group_ingress_rule" "HTTP" {
   security_group_id = aws_security_group.hotel-server.id
-  cidr_ipv4         = var.home_ip
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
   to_port           = 80
   ip_protocol       = "tcp"
@@ -42,7 +42,7 @@ resource "aws_vpc_security_group_ingress_rule" "HTTP" {
 
 resource "aws_vpc_security_group_ingress_rule" "HTTPS" {
   security_group_id = aws_security_group.hotel-server.id
-  cidr_ipv4         = var.home_ip
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 443
   to_port           = 443
   ip_protocol       = "tcp"
