@@ -47,3 +47,12 @@ resource "aws_vpc_security_group_ingress_rule" "HTTPS" {
   to_port           = 443
   ip_protocol       = "tcp"
 }
+
+# Elastic IP
+resource "aws_eip" "hotel-server" {
+  instance = aws_instance.hotel-server.id
+
+  tags = {
+    Name = "Hotel Server"
+  }
+}
