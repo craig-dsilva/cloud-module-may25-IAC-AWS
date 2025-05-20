@@ -48,6 +48,12 @@ resource "aws_vpc_security_group_ingress_rule" "HTTPS" {
   ip_protocol       = "tcp"
 }
 
+resource "aws_vpc_security_group_egress_rule" "allow-all" {
+  security_group_id = aws_security_group.hotel-server.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = -1
+}
+
 # Elastic IP
 resource "aws_eip" "hotel-server" {
   instance = aws_instance.hotel-server.id
