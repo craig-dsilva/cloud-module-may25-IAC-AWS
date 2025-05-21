@@ -3,6 +3,7 @@ resource "aws_instance" "hotel-server" {
   instance_type   = "t2.micro"
   key_name        = aws_key_pair.hotel-server.key_name
   security_groups = [aws_security_group.hotel-server.name]
+  user_data       = file("${path.module}/script.sh")
 
   tags = {
     Name = "Hotel Server"
@@ -32,19 +33,11 @@ resource "aws_vpc_security_group_ingress_rule" "SSH" {
   ip_protocol       = "tcp"
 }
 
-resource "aws_vpc_security_group_ingress_rule" "HTTP" {
+resource "aws_vpc_security_group_ingress_rule" "app-port" {
   security_group_id = aws_security_group.hotel-server.id
   cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 80
-  to_port           = 80
-  ip_protocol       = "tcp"
-}
-
-resource "aws_vpc_security_group_ingress_rule" "HTTPS" {
-  security_group_id = aws_security_group.hotel-server.id
-  cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 443
-  to_port           = 443
+  from_port         = 3001
+  to_port           = 3001
   ip_protocol       = "tcp"
 }
 
