@@ -45,3 +45,25 @@ resource "aws_iam_user_policy" "backend-pipeline-policy" {
     ]
   })
 }
+
+resource "aws_iam_user" "hotel-db-url-secret" {
+  name = "secret"
+}
+
+resource "aws_iam_user_policy" "hotel-db-url-secret" {
+  name = "secret"
+  user = aws_iam_user.hotel-db-url-secret.name
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret"
+        ],
+        "Resource" : aws_secretsmanager_secret.hotel-db-url.arn
+      }
+    ]
+  })
+}
