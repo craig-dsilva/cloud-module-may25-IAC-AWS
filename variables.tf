@@ -9,16 +9,11 @@ variable "home_ip" {
 }
 
 variable "db_username" {
-  type = string
+  type      = string
   sensitive = true
 }
 
 variable "db_password" {
-  type = string
-  sensitive = true
-}
-
-variable "ec2_ip" {
-  type = string
+  type      = string
   sensitive = true
 }
